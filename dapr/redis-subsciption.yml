@@ -1,0 +1,10 @@
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: redis-subscription
+spec:
+  topic: x-alert
+  route: /alert
+  pubsubname: eventpubsub
+scopes:
+- dapr-frontend

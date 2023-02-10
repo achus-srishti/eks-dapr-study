@@ -1,0 +1,15 @@
+users:
+  - name: achu
+    age: 37
+    power:
+      - strong
+      - fly
+      - imvisible
+  - name: thakkudu
+    age: 4
+    power:
+      - strong
+      - fly
+      - imvisible
+      - laser
+      - fire

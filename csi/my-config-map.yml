@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: my-config-map-script
+data:
+  initScript: |-
+    touch /opt/hello
+    echo "123456789" > /opt/hello

@@ -1,0 +1,3 @@
+# Expose pod as NodePort.
+# NodePort is random, will be assigned by kube with 30000-32000. --port is service port and --target-port is the deployed service port.
+kubectl expose pod my-first-pod  --type=NodePort --port=80 --target-port=80 --name=my-first-service

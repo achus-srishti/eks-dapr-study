@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-deployment
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: helloworld
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: helloworld
+        image: stacksimplify/kube-helloworld:1.0.0
+        ports:
+          - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  nginx-deployment-service
+spec:
+  selector:
+    app:  helloworld
+  type:  NodePort
+  ports:
+  - port:  80
+    targetPort:  8080
+    nodePort: 30002
+    

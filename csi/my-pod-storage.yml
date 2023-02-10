@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  my-pod-storage
+  labels:
+    app:  my-pod-storage
+spec:
+  selector:
+    matchLabels:
+      app: my-pod-storage
+  replicas: 5
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  my-pod-storage
+    spec:
+      containers:
+      - name:  my-pod-storage
+        image:  achuthman/node-total:v3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        workingDir: /opt/app_fe
+        env:
+          - name: ServiceName
+            value: http://node-backend-service
+        command:
+          - "node"
+          - "app.js"
+        ports:
+        - containerPort:  80
+        volumeMounts:
+          - name: my-persistent-volumes
+            mountPath: /my_mount
+          - name: my-config-map-script
+            mountPath: /opt/init.sh
+      volumes:
+        - name: my-persistent-volumes
+          persistentVolumeClaim:
+            claimName: my-persistent-volumes
+        - name: my-config-map-script
+          configMap:
+            name: my-config-map-script
+      restartPolicy: Always

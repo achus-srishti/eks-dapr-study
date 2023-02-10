@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-backend
+  template:
+    metadata:
+      labels:
+        app: dapr-backend
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "quote-bo"
+        dapr.io/app-port: "80"
+    spec:
+      containers:
+      - name: dapr-backend
+        image: achuthman/dapr-test:v14
+        command:
+          - node
+          - app.js
+        workingDir: /opt/app-be
+        ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dapr-backend-service
+spec:
+  selector:
+    app: dapr-backend
+  type: NodePort
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30081
