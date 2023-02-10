@@ -1,0 +1,1 @@
+eksctl create iamidentitymapping --cluster eksdemo1 --region=us-east-1 --arn arn:aws:iam::111122223333:user/achus.srishti --group eks-console-dashboard-full-access-group --no-duplicate-arns

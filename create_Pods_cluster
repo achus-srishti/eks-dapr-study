@@ -1,0 +1,5 @@
+# How to create a pod
+kubectl run my-first-pod --image stacksimplify/kubenginx:1.0.0
+
+# How to delete a pod
+kubectl delete pod my-first-pod
